@@ -12,9 +12,23 @@ export const verifyAccessToken = function (req, res, next) {
 	req.user = null;
 	const authHeader = req.headers.authorization?.split(" ")[1];
 	const accessToken = req.cookies?.accessToken || authHeader;
-	// console.log(authHeader);
+	console.log("cookie", req.cookies?.accessToken);
+	console.log("req cookie", req.cookies);
+
+	const options = {
+		httpOnly: true,
+		maxAge: 1000 * 60 * 60 * 24, // 1 day
+		sameSite: "lax",
+		secure: false,
+		domain: "localhost",
+		path: "/",
+	};
 
 	if (!accessToken) {
+		res.clearCookie("accessToken", options).clearCookie(
+			"refreshToken",
+			options,
+		);
 		return new ApiError(401, "Invalid or Absent Access Token.").JSONError(
 			res,
 		);
@@ -29,6 +43,8 @@ export const verifyAccessToken = function (req, res, next) {
 		req.user = {
 			id: decodedToken?.id,
 		};
+		console.log("going to next");
+
 		next();
 	} catch (error) {
 		return new ApiError(401, error.name).JSONError(res);

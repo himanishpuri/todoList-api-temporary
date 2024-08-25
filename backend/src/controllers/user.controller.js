@@ -43,6 +43,10 @@ export const registerUser = asyncHandler(async function (req, res, next) {
 		const options = {
 			httpOnly: true,
 			maxAge: 1000 * 60 * 60 * 24, // 1 day
+			sameSite: "lax",
+			secure: false,
+			domain: "localhost",
+			path: "/",
 		};
 
 		return res
@@ -87,6 +91,10 @@ export const loginUser = asyncHandler(async function (req, res, next) {
 		const options = {
 			httpOnly: true,
 			maxAge: 1000 * 60 * 60 * 24, // 1 day
+			sameSite: "lax",
+			secure: false,
+			domain: "localhost",
+			path: "/",
 		};
 
 		return res
@@ -109,6 +117,8 @@ export const loginUser = asyncHandler(async function (req, res, next) {
 });
 
 export const logoutUser = asyncHandler(async function (req, res, next) {
+	console.log("User", req);
+
 	try {
 		const user = await User.findByIdAndUpdate(req?.user?.id, {
 			$set: { refreshToken: null },
@@ -117,11 +127,15 @@ export const logoutUser = asyncHandler(async function (req, res, next) {
 		if (!user) {
 			return new ApiError(404, "User not found").JSONError(res);
 		}
-
 		const options = {
 			httpOnly: true,
 			maxAge: 1000 * 60 * 60 * 24, // 1 day
+			sameSite: "lax",
+			secure: false,
+			domain: "localhost",
+			path: "/",
 		};
+		console.log(process.env.HOST_ORIGIN);
 
 		return res
 			.status(200)

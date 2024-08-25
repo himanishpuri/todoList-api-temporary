@@ -3,6 +3,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Error({ msg }) {
 	return (
@@ -22,19 +23,27 @@ function Login() {
 	} = useForm();
 
 	const onSubmit = async (data) => {
-		const response = await fetch("http://localhost:5000/api/user/login", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(data),
-		});
-		const resData = await response.json();
-		localStorage.setItem("accessToken", JSON.stringify(resData?.accessToken));
-		localStorage.setItem(
-			"refreshToken",
-			JSON.stringify(resData?.refreshToken),
+		const response = await axios.post(
+			"http://localhost:5000/api/user/login",
+			data,
+			{ withCredentials: true },
 		);
+		// const response = await fetch("http://localhost:5000/api/user/login", {
+		// 	method: "POST",
+		// 	headers: {
+		// 		"Content-Type": "application/json",
+		// 	},
+		// 	body: JSON.stringify(data),
+		// });
+		// const resData = await response.json();
+		const { data: resData } = response;
+		console.log("login", resData);
+
+		// localStorage.setItem("accessToken", JSON.stringify(resData?.accessToken));
+		// localStorage.setItem(
+		// 	"refreshToken",
+		// 	JSON.stringify(resData?.refreshToken),
+		// );
 		setErrMsg(resData?.message);
 		setTimeout(() => {
 			setErrMsg("");

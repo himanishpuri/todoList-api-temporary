@@ -3,6 +3,8 @@ import TodoForm from "./components/TodoForm";
 import Todo from "./components/Todo";
 import bg_img from "./assets/skyline.jpg";
 import { Link, useNavigate } from "react-router-dom";
+// import Cookies from "js-cookie";
+import axios from "axios";
 
 function App() {
 	const navigate = useNavigate();
@@ -10,22 +12,31 @@ function App() {
 	const [page, setPage] = useState(1);
 	const [totalTodoPages, setTotalTodoPages] = useState(1);
 	const getTodosFromServer = async function () {
-		const res = await fetch(
+		const res = await axios.get(
 			`http://localhost:5000/api/todos?page=${page}&limit=5`,
 			{
-				headers: {
-					credentials: "include", // Include cookies in the request
-					Authorization: `Bearer ${JSON.parse(
-						localStorage.getItem("accessToken"),
-					)}`,
-				},
+				withCredentials: true,
 			},
 		);
-		const todos = await res.json();
-		console.log(res);
+
+		// const res = await fetch(
+		// 	`http://localhost:5000/api/todos?page=${page}&limit=5`,
+		// 	{
+		// 		credentials: "include", // Include cookies in the request
+		// 		headers: {
+		// 			// Authorization: `Bearer ${JSON.parse(
+		// 			// 	localStorage.getItem("accessToken"),
+		// 			// )}`,
+		// 		},
+		// 	},
+		// );
+		console.log("Res", res);
+
+		const { data: todos } = res;
+		console.log("app todo,", todos);
 
 		setTodoInfo(todos.data);
-		console.log(todos);
+		// console.log(todos);
 
 		setTotalTodoPages(Math.ceil(todos.todos / 5));
 	};
@@ -34,20 +45,27 @@ function App() {
 	}, [page]);
 
 	const handleLogout = async () => {
-		await fetch(`http://localhost:5000/api/user/logout`, {
-			method: "POST",
-			headers: {
-				credentials: "include", // Include cookies in the request, but this is not including cookies.
-				Authorization: `Bearer ${JSON.parse(
-					localStorage.getItem("accessToken"),
-				)}`,
-			},
+		const res = await axios.post(`http://localhost:5000/api/user/logout`, {
+			withCredentials: true,
 		});
-		localStorage.removeItem("accessToken");
-		localStorage.removeItem("refreshToken");
+		// await fetch(`http://localhost:5000/api/user/logout`, {
+		// 	method: "POST",
+		// 	credentials: "include", // Include cookies in the request
+		// 	headers: {
+		// 		// Authorization: `Bearer ${JSON.parse(
+		// 		// 	localStorage.getItem("accessToken"),
+		// 		// )}`,
+		// 	},
+		// });
+		// localStorage.removeItem("accessToken");
+		// localStorage.removeItem("refreshToken");
+		console.log("logout", res);
+
 		navigate("/");
 	};
 	// console.log(todoInfo);
+	// Cookies.set("accessToken", JSON.parse(localStorage.getItem("accessToken")));
+	// console.log("cookie", Cookies.get());
 
 	/*
 	Sure, here's a boiled-down summary for future reference:

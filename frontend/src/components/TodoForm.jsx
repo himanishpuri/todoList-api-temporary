@@ -1,27 +1,38 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 
 function TodoForm({ getTodosFromServer }) {
 	const [todoMsg, setTodoMsg] = useState("");
-	const header = new Headers();
-	header.append("Content-Type", "");
 
 	const handleAdd = async function () {
 		if (todoMsg.trim().length === 0) return;
 		setTodoMsg("");
-		await fetch("http://localhost:5000/api/todos", {
-			method: "POST",
-			body: JSON.stringify({
+		await axios.post(
+			"http://localhost:5000/api/todos",
+			{
 				title: todoMsg.trim(),
 				completed: false,
-			}),
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${JSON.parse(
-					localStorage.getItem("accessToken"),
-				)}`,
 			},
-		});
+			{
+				withCredentials: true,
+			},
+		);
+
+		// await fetch("http://localhost:5000/api/todos", {
+		// 	method: "POST",
+		// 	body: JSON.stringify({
+		// 		title: todoMsg.trim(),
+		// 		completed: false,
+		// 	}),
+		// 	credentials: "include",
+		// 	headers: {
+		// 		"Content-Type": "application/json",
+		// 		// Authorization: `Bearer ${JSON.parse(
+		// 		// 	localStorage.getItem("accessToken"),
+		// 		// )}`,
+		// 	},
+		// });
 		await getTodosFromServer();
 	};
 

@@ -4,6 +4,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Error({ msg }) {
 	return (
@@ -23,29 +24,34 @@ function Register() {
 	} = useForm();
 
 	const onSubmit = async (data) => {
-		const response = await fetch("http://localhost:5000/api/user/register", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(data),
-		});
-		const resData = await response.json();
-		console.log(resData);
+		const response = await axios.post(
+			"http://localhost:5000/api/user/register",
+			data,
+			{ withCredentials: true },
+		);
+		// const response = await fetch("http://localhost:5000/api/user/register", {
+		// 	method: "POST",
+		// 	headers: {
+		// 		"Content-Type": "application/json",
+		// 	},
+		// 	body: JSON.stringify(data),
+		// });
+		const { data: resData } = response;
+		console.log(response);
 
 		setErrMsg(resData?.message);
 		setTimeout(() => {
 			setErrMsg("");
 		}, 5 * 1000);
 
-		localStorage.setItem("accessToken", JSON.stringify(resData?.accessToken));
-		localStorage.setItem(
-			"refreshToken",
-			JSON.stringify(resData?.refreshToken),
-		);
+		// localStorage.setItem("accessToken", JSON.stringify(resData?.accessToken));
+		// localStorage.setItem(
+		// 	"refreshToken",
+		// 	JSON.stringify(resData?.refreshToken),
+		// );
 
 		if (resData?.success) navigate("/app");
-		console.log("resData:", resData);
+		// console.log("response:", response);
 	};
 	return (
 		<div className="bg-gray-900 h-screen w-full grid place-items-center">

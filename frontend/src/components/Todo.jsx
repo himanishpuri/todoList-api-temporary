@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 
 function Todo({ id, title, completed, getTodosFromServer }) {
 	const [edit, setEdit] = useState(false);
@@ -8,19 +9,28 @@ function Todo({ id, title, completed, getTodosFromServer }) {
 	const [isComplete, setIsComplete] = useState(completed);
 
 	const updateServer = async function (msg, completed) {
-		await fetch(`http://localhost:5000/api/todos/${id}`, {
-			method: "PUT",
-			body: JSON.stringify({
+		await axios.put(
+			`http://localhost:5000/api/todos/${id}`,
+			{
 				title: msg,
 				completed,
-			}),
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${JSON.parse(
-					localStorage.getItem("accessToken"),
-				)}`,
 			},
-		});
+			{ withCredentials: true },
+		);
+		// await fetch(`http://localhost:5000/api/todos/${id}`, {
+		// 	method: "PUT",
+		// 	body: JSON.stringify({
+		// 		title: msg,
+		// 		completed,
+		// 	}),
+		// 	credentials: "include",
+		// 	headers: {
+		// 		"Content-Type": "application/json",
+		// 		// Authorization: `Bearer ${JSON.parse(
+		// 		// 	localStorage.getItem("accessToken"),
+		// 		// )}`,
+		// 	},
+		// });
 	};
 
 	const handleEdit = () => {
@@ -36,14 +46,17 @@ function Todo({ id, title, completed, getTodosFromServer }) {
 	};
 
 	const handleDelete = async () => {
-		await fetch(`http://localhost:5000/api/todos/${id}`, {
-			method: "DELETE",
-			headers: {
-				Authorization: `Bearer ${JSON.parse(
-					localStorage.getItem("accessToken"),
-				)}`,
-			},
+		await axios.delete(`http://localhost:5000/api/todos/${id}`, {
+			withCredentials: true,
 		});
+		// await fetch(`http://localhost:5000/api/todos/${id}`, {
+		// 	method: "DELETE",
+		// 	headers: {
+		// 		// Authorization: `Bearer ${JSON.parse(
+		// 		// 	localStorage.getItem("accessToken"),
+		// 		// )}`,
+		// 	},
+		// });
 
 		await getTodosFromServer();
 	};
