@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.container__self {
+  height: 70vh;
+  width: auto;
+  overflow-y: scroll;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+
+.container__self::-webkit-scrollbar {
+  width: 0;
+}
+
