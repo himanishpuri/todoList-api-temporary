@@ -16,8 +16,8 @@ export async function generateToken(req, res, next) {
 		const options = {
 			httpOnly: true,
 			maxAge: 1000 * 60 * 60 * 24, // 1 day
-			sameSite: "lax",
-			secure: false,
+			sameSite: "none",
+			secure: true,
 			domain: "localhost",
 			path: "/",
 		};
