@@ -45,8 +45,6 @@ export const registerUser = asyncHandler(async function (req, res, next) {
 			maxAge: 1000 * 60 * 60 * 24, // 1 day
 			sameSite: "none",
 			secure: true,
-			domain: "localhost",
-			path: "/",
 		};
 
 		return res
@@ -91,8 +89,6 @@ export const loginUser = asyncHandler(async function (req, res, next) {
 			maxAge: 1000 * 60 * 60 * 24, // 1 day
 			sameSite: "none",
 			secure: true,
-			domain: "localhost",
-			path: "/",
 		};
 
 		return res
@@ -126,8 +122,6 @@ export const logoutUser = asyncHandler(async function (req, res, next) {
 			maxAge: 1000 * 60 * 60 * 24, // 1 day
 			sameSite: "none",
 			secure: true,
-			domain: "localhost",
-			path: "/",
 		};
 
 		return res

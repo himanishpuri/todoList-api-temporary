@@ -18,8 +18,6 @@ export async function generateToken(req, res, next) {
 			maxAge: 1000 * 60 * 60 * 24, // 1 day
 			sameSite: "none",
 			secure: true,
-			domain: "localhost",
-			path: "/",
 		};
 
 		return res
