@@ -13,7 +13,7 @@ function Todo({ id, title, completed, getTodosFromServer }) {
 	const updateServer = async function (msg, completed) {
 		try {
 			await axios.put(
-				`https://todolistappcrud.netlify.app/api/todos/${id}`,
+				`https://todo-list-app-vaiq.vercel.app/api/todos/${id}`,
 				{
 					title: msg,
 					completed,
@@ -23,7 +23,7 @@ function Todo({ id, title, completed, getTodosFromServer }) {
 		} catch (error) {
 			try {
 				await axios.get(
-					"https://todolistappcrud.netlify.app/api/newToken",
+					"https://todo-list-app-vaiq.vercel.app/api/newToken",
 					{
 						withCredentials: true,
 					},
@@ -51,7 +51,7 @@ function Todo({ id, title, completed, getTodosFromServer }) {
 		setDeleting(true);
 		try {
 			await axios.delete(
-				`https://todolistappcrud.netlify.app/api/todos/${id}`,
+				`https://todo-list-app-vaiq.vercel.app/api/todos/${id}`,
 				{
 					withCredentials: true,
 				},
@@ -60,7 +60,7 @@ function Todo({ id, title, completed, getTodosFromServer }) {
 		} catch (error) {
 			try {
 				await axios.get(
-					"https://todolistappcrud.netlify.app/api/newToken",
+					"https://todo-list-app-vaiq.vercel.app/api/newToken",
 					{
 						withCredentials: true,
 					},

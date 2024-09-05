@@ -13,7 +13,7 @@ function App() {
 
 	const getTodosFromServer = async function () {
 		const { data: todos } = await axios.get(
-			`https://todolistappcrud.netlify.app/api/todos?page=${page}&limit=5`,
+			`https://todo-list-app-vaiq.vercel.app/api/todos?page=${page}&limit=5`,
 			{
 				withCredentials: true,
 			},
@@ -29,7 +29,7 @@ function App() {
 	const handleLogout = async () => {
 		// axios.post(url[, data[, config]])
 		await axios.post(
-			`https://todolistappcrud.netlify.app/api/user/logout`,
+			`https://todo-list-app-vaiq.vercel.app/api/user/logout`,
 			{},
 			{
 				withCredentials: true,
