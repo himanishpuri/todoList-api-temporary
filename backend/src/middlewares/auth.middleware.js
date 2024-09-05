@@ -13,7 +13,7 @@ export const verifyAccessToken = function (req, res, next) {
 	req.user = null;
 	const authHeader = req.headers.authorization?.split(" ")[1];
 	const accessToken = req.cookies?.accessToken || authHeader;
-
+	console.log("accessToken: ", accessToken);
 	const options = {
 		httpOnly: true,
 		maxAge: 1000 * 60 * 60 * 24, // 1 day
