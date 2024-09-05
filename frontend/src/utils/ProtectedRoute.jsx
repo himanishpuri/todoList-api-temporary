@@ -19,6 +19,8 @@ function ProtectedRoute({ children }) {
 			setAuthenticated(true);
 		} catch (error) {
 			setAuthenticated(false);
+			console.log(error);
+
 			// navigate("/");
 		} finally {
 			setLoading(false);
