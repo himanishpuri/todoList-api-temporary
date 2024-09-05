@@ -18,9 +18,7 @@ function ProtectedRoute({ children }) {
 			await axios.post(
 				"https://todo-list-app-xxh1.vercel.app/api/user/isValidUser",
 				{},
-				{
-					withCredentials: true,
-				},
+				{ withCredentials: true },
 			);
 			setAuthenticated(true);
 		} catch (error) {
