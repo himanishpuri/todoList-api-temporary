@@ -1,6 +1,6 @@
 import ApiError from "../utils/ApiError.js";
 import jwt from "jsonwebtoken";
-import asyncHandler from "../utils/asyncHandler.js";
+// import asyncHandler from "../utils/asyncHandler.js";
 import User from "../models/user.model.js";
 
 export const verifyAccessToken = function (req, res, next) {
@@ -22,10 +22,10 @@ export const verifyAccessToken = function (req, res, next) {
 	};
 
 	if (!accessToken) {
-		res.clearCookie("accessToken", options).clearCookie(
-			"refreshToken",
-			options,
-		);
+		// res.clearCookie("accessToken", options).clearCookie(
+		// 	"refreshToken",
+		// 	options,
+		// );
 		return new ApiError(401, "Invalid or Absent Access Token.").JSONError(
 			res,
 		);
