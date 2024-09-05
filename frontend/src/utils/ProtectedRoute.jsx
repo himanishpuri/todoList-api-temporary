@@ -34,7 +34,10 @@ function ProtectedRoute({ children }) {
 	};
 
 	useEffect(() => {
-		isValidUser();
+		const hello = async () => {
+			await isValidUser();
+		};
+		hello();
 	}, []);
 
 	if (loading)
