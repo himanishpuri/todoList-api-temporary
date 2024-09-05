@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
@@ -17,20 +16,6 @@ function Todo({ id, title, completed, getTodosFromServer }) {
 			},
 			{ withCredentials: true },
 		);
-		// await fetch(`http://localhost:5000/api/todos/${id}`, {
-		// 	method: "PUT",
-		// 	body: JSON.stringify({
-		// 		title: msg,
-		// 		completed,
-		// 	}),
-		// 	credentials: "include",
-		// 	headers: {
-		// 		"Content-Type": "application/json",
-		// 		// Authorization: `Bearer ${JSON.parse(
-		// 		// 	localStorage.getItem("accessToken"),
-		// 		// )}`,
-		// 	},
-		// });
 	};
 
 	const handleEdit = () => {
@@ -49,17 +34,9 @@ function Todo({ id, title, completed, getTodosFromServer }) {
 		await axios.delete(`http://localhost:5000/api/todos/${id}`, {
 			withCredentials: true,
 		});
-		// await fetch(`http://localhost:5000/api/todos/${id}`, {
-		// 	method: "DELETE",
-		// 	headers: {
-		// 		// Authorization: `Bearer ${JSON.parse(
-		// 		// 	localStorage.getItem("accessToken"),
-		// 		// )}`,
-		// 	},
-		// });
-
 		await getTodosFromServer();
 	};
+
 	const text_toDo_Done = "line-through text-gray-400";
 
 	return (

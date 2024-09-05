@@ -1,39 +1,32 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import CreateNewToken from "../utils/CreateNewToken.jsx";
 
 function TodoForm({ getTodosFromServer }) {
+	const navigate = useNavigate();
 	const [todoMsg, setTodoMsg] = useState("");
 
 	const handleAdd = async function () {
 		if (todoMsg.trim().length === 0) return;
+		try {
+			await axios.post(
+				"http://localhost:5000/api/todos",
+				{
+					title: todoMsg.trim(),
+					completed: false,
+				},
+				{
+					withCredentials: true,
+				},
+			);
+			await getTodosFromServer();
+		} catch (error) {
+			await CreateNewToken();
+			await handleAdd();
+		}
 		setTodoMsg("");
-		await axios.post(
-			"http://localhost:5000/api/todos",
-			{
-				title: todoMsg.trim(),
-				completed: false,
-			},
-			{
-				withCredentials: true,
-			},
-		);
-
-		// await fetch("http://localhost:5000/api/todos", {
-		// 	method: "POST",
-		// 	body: JSON.stringify({
-		// 		title: todoMsg.trim(),
-		// 		completed: false,
-		// 	}),
-		// 	credentials: "include",
-		// 	headers: {
-		// 		"Content-Type": "application/json",
-		// 		// Authorization: `Bearer ${JSON.parse(
-		// 		// 	localStorage.getItem("accessToken"),
-		// 		// )}`,
-		// 	},
-		// });
-		await getTodosFromServer();
 	};
 
 	return (

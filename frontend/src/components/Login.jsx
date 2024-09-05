@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function Error({ msg }) {
+function ErrorMsg({ msg }) {
 	return (
 		<p className="bg-gray-300 text-gray-600 w-full p-1 px-2 rounded-sm">
 			{msg}
@@ -28,30 +28,12 @@ function Login() {
 			data,
 			{ withCredentials: true },
 		);
-		// const response = await fetch("http://localhost:5000/api/user/login", {
-		// 	method: "POST",
-		// 	headers: {
-		// 		"Content-Type": "application/json",
-		// 	},
-		// 	body: JSON.stringify(data),
-		// });
-		// const resData = await response.json();
 		const { data: resData } = response;
-		console.log("login", resData);
-
-		// localStorage.setItem("accessToken", JSON.stringify(resData?.accessToken));
-		// localStorage.setItem(
-		// 	"refreshToken",
-		// 	JSON.stringify(resData?.refreshToken),
-		// );
 		setErrMsg(resData?.message);
 		setTimeout(() => {
 			setErrMsg("");
 		}, 5 * 1000);
-		if (resData?.success) {
-			navigate("/app");
-		}
-		// console.log(resData);
+		if (resData?.success) navigate("/app");
 	};
 	return (
 		<div className="bg-gray-900 h-screen w-full grid place-items-center">
@@ -77,7 +59,7 @@ function Login() {
 				<ErrorMessage
 					errors={errors}
 					name="email"
-					render={({ message }) => <Error msg={message} />}
+					render={({ message }) => <ErrorMsg msg={message} />}
 				/>
 				<input
 					type="password"
@@ -94,7 +76,7 @@ function Login() {
 				<ErrorMessage
 					errors={errors}
 					name="password"
-					render={({ message }) => <Error msg={message} />}
+					render={({ message }) => <ErrorMsg msg={message} />}
 				/>
 				<button
 					type="submit"
@@ -102,7 +84,7 @@ function Login() {
 				>
 					{isSubmitting ? "Submiting.." : "Submit"}
 				</button>
-				{errMsg && <Error msg={errMsg} />}
+				{errMsg && <ErrorMsg msg={errMsg} />}
 				<p className="text-center font-semibold">
 					Don&rsquo;t have an account?{" "}
 					<Link
@@ -117,7 +99,7 @@ function Login() {
 	);
 }
 
-Error.propTypes = {
+ErrorMsg.propTypes = {
 	msg: PropTypes.string.isRequired,
 };
 

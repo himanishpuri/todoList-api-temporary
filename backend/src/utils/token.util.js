@@ -16,6 +16,10 @@ export async function generateToken(req, res, next) {
 		const options = {
 			httpOnly: true,
 			maxAge: 1000 * 60 * 60 * 24, // 1 day
+			sameSite: "lax",
+			secure: false,
+			domain: "localhost",
+			path: "/",
 		};
 
 		return res
@@ -27,6 +31,6 @@ export async function generateToken(req, res, next) {
 				success: true,
 			});
 	} catch (error) {
-		return new ApiError(400, "Could Not Clear Cookie.").JSONError(res);
+		return new ApiError(500, "Could Not Generate Cookie.").JSONError(res);
 	}
 }

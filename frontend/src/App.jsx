@@ -28,49 +28,16 @@ function App() {
 	}, [page]);
 
 	const handleLogout = async () => {
-		const res = await axios.post(
+		// axios.post(url[, data[, config]])
+		await axios.post(
 			`http://localhost:5000/api/user/logout`,
 			{},
 			{
 				withCredentials: true,
 			},
 		);
-		// await fetch(`http://localhost:5000/api/user/logout`, {
-		// 	method: "POST",
-		// 	credentials: "include", // Include cookies in the request
-		// 	headers: {
-		// 		// Authorization: `Bearer ${JSON.parse(
-		// 		// 	localStorage.getItem("accessToken"),
-		// 		// )}`,
-		// 	},
-		// });
-		// localStorage.removeItem("accessToken");
-		// localStorage.removeItem("refreshToken");
-		console.log("logout", res);
-
 		navigate("/");
 	};
-	// console.log(todoInfo);
-	// Cookies.set("accessToken", JSON.parse(localStorage.getItem("accessToken")));
-	// console.log("cookie", Cookies.get());
-
-	/*
-	Sure, here's a boiled-down summary for future reference:
-
-1. **Immutability in State Updates:** Always update state immutably in React to ensure predictable component rendering and state management.
-
-2. **Functional Updates:** Use functional updates (`setState((prev) => ...)` syntax) when updating state based on previous state. This helps in avoiding stale state references.
-
-3. **Avoid Immediate State Dependency in Logs:** React's state updates are asynchronous, so avoid depending on state values immediately after setting state (`console.log`, etc.). Use `useEffect` with state dependencies to log updated state values reliably.
-
-4. **Predictable Rendering:** Ensure state updates trigger re-renders correctly by updating state immutably and handling state dependencies effectively.
-
-By following these principles, you'll maintain clean and efficient state management practices in your React applications.
-  */
-
-	// use this approach, create new changes
-
-	// in useffect if there is an empty array, then it runs once, if it no array, it runs everytime
 
 	return (
 		<div
