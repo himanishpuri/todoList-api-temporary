@@ -50,6 +50,7 @@ function TodoForm({ getTodosFromServer }) {
 			<button
 				className="bg-white text-black border-black border-2 rounded-lg px-3 py-2 font-semibold text-lg min-w-28 hover:border-white hover:bg-black hover:text-white duration-200"
 				onClick={handleAdd}
+				disabled={adding}
 			>
 				{adding ? "Adding..." : "Add"}
 			</button>

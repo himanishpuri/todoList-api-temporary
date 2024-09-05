@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 function Todo({ id, title, completed, getTodosFromServer }) {
 	const navigate = useNavigate();
 	const [edit, setEdit] = useState(false);
+	const [deleting, setDeleting] = useState(false);
 	const [msg, setMsg] = useState(title);
 	const [isComplete, setIsComplete] = useState(completed);
 
@@ -44,6 +45,7 @@ function Todo({ id, title, completed, getTodosFromServer }) {
 	};
 
 	const handleDelete = async () => {
+		setDeleting(true);
 		try {
 			await axios.delete(`http://localhost:5000/api/todos/${id}`, {
 				withCredentials: true,
@@ -58,6 +60,8 @@ function Todo({ id, title, completed, getTodosFromServer }) {
 			} catch (error) {
 				navigate("/");
 			}
+		} finally {
+			setDeleting(false);
 		}
 	};
 
@@ -98,9 +102,9 @@ function Todo({ id, title, completed, getTodosFromServer }) {
 					isComplete ? "bg-gray-500" : "bg-gray-300"
 				}`}
 				onClick={handleDelete}
-				disabled={isComplete}
+				disabled={isComplete || deleting}
 			>
-				Delete
+				{deleting ? "Deleting..." : "Delete"}
 			</button>
 		</div>
 	);
