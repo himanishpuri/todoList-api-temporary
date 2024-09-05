@@ -2,7 +2,6 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import CreateNewToken from "../utils/CreateNewToken.jsx";
 
 function TodoForm({ getTodosFromServer }) {
 	const navigate = useNavigate();
@@ -23,8 +22,14 @@ function TodoForm({ getTodosFromServer }) {
 			);
 			await getTodosFromServer();
 		} catch (error) {
-			await CreateNewToken();
-			await handleAdd();
+			try {
+				await axios.get("http://localhost:5000/api/newToken", {
+					withCredentials: true,
+				});
+				await handleAdd();
+			} catch (error) {
+				navigate("/");
+			}
 		}
 		setTodoMsg("");
 	};
