@@ -6,8 +6,10 @@ import { useNavigate } from "react-router-dom";
 function TodoForm({ getTodosFromServer }) {
 	const navigate = useNavigate();
 	const [todoMsg, setTodoMsg] = useState("");
+	const [adding, setAdding] = useState(false);
 
 	const handleAdd = async function () {
+		setAdding(true);
 		if (todoMsg.trim().length === 0) return;
 		try {
 			await axios.post(
@@ -30,6 +32,8 @@ function TodoForm({ getTodosFromServer }) {
 			} catch (error) {
 				navigate("/");
 			}
+		} finally {
+			setAdding(false);
 		}
 		setTodoMsg("");
 	};
@@ -44,10 +48,10 @@ function TodoForm({ getTodosFromServer }) {
 				onChange={(e) => setTodoMsg(e.currentTarget.value)}
 			></input>
 			<button
-				className="bg-white text-black border-black border-2 rounded-lg px-3 py-2 font-semibold text-lg hover:border-white hover:bg-black hover:text-white duration-200"
+				className="bg-white text-black border-black border-2 rounded-lg px-3 py-2 font-semibold text-lg min-w-28 hover:border-white hover:bg-black hover:text-white duration-200"
 				onClick={handleAdd}
 			>
-				Add
+				{adding ? "Adding..." : "Add"}
 			</button>
 		</div>
 	);

@@ -12,13 +12,12 @@ function App() {
 	const [totalTodoPages, setTotalTodoPages] = useState(1);
 
 	const getTodosFromServer = async function () {
-		const res = await axios.get(
+		const { data: todos } = await axios.get(
 			`http://localhost:5000/api/todos?page=${page}&limit=5`,
 			{
 				withCredentials: true,
 			},
 		);
-		const { data: todos } = res;
 		setTodoInfo(todos.data);
 		setTotalTodoPages(Math.ceil(todos.todos / 5));
 	};
