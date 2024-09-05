@@ -131,7 +131,6 @@ export const logoutUser = asyncHandler(async function (req, res, next) {
 			domain: "localhost",
 			path: "/",
 		};
-		console.log(process.env.HOST_ORIGIN);
 
 		return res
 			.status(200)

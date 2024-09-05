@@ -9,11 +9,10 @@ export const verifyAccessToken = function (req, res, next) {
 	// check if it hasn't expired yet.
 	// save in req.user
 	// next()
+
 	req.user = null;
 	const authHeader = req.headers.authorization?.split(" ")[1];
 	const accessToken = req.cookies?.accessToken || authHeader;
-	console.log("cookie", req.cookies?.accessToken);
-	console.log("req cookie", req.cookies);
 
 	const options = {
 		httpOnly: true,
@@ -100,33 +99,6 @@ export const verifyRefreshToken = function (req, res, next) {
 	}
 };
 
-// export const verifyLogoutToken = asyncHandler(async function (req, res, next) {
-// 	const refreshToken = req.cookies?.refreshToken;
-// 	if (!refreshToken) {
-// 		return new ApiError(
-// 			401,
-// 			"User already logged out OR Unauthorized Logout.",
-// 		).JSONError(res);
-// 	}
-// 	const token = accessToken || refreshToken;
-// 	const SECRET =
-// 		token === accessToken
-// 			? process.env.ACCESS_TOKEN_SECRET
-// 			: process.env.REFRESH_TOKEN_SECRET;
-
-// 	try {
-// 		const decodedToken = jwt.verify(token, SECRET);
-
-// 		req.user = {
-// 			id: decodedToken.id,
-// 		};
-
-// 		next();
-// 	} catch (error) {
-// 		return new ApiError(401, "Error", error).JSONError(res);
-// 	}
-// });
-
 export const authenticateRegistrationDetails = async function (req, res, next) {
 	const { email, name, password } = req.body;
 
@@ -154,3 +126,30 @@ export const authenticateRegistrationDetails = async function (req, res, next) {
 
 	next();
 };
+
+// export const verifyLogoutToken = asyncHandler(async function (req, res, next) {
+// 	const refreshToken = req.cookies?.refreshToken;
+// 	if (!refreshToken) {
+// 		return new ApiError(
+// 			401,
+// 			"User already logged out OR Unauthorized Logout.",
+// 		).JSONError(res);
+// 	}
+// 	const token = accessToken || refreshToken;
+// 	const SECRET =
+// 		token === accessToken
+// 			? process.env.ACCESS_TOKEN_SECRET
+// 			: process.env.REFRESH_TOKEN_SECRET;
+
+// 	try {
+// 		const decodedToken = jwt.verify(token, SECRET);
+
+// 		req.user = {
+// 			id: decodedToken.id,
+// 		};
+
+// 		next();
+// 	} catch (error) {
+// 		return new ApiError(401, "Error", error).JSONError(res);
+// 	}
+// });

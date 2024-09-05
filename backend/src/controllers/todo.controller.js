@@ -54,8 +54,6 @@ export const updateTodo = asyncHandler(async function (req, res, next) {
 	const { title, completed } = req.body;
 	const { id } = req.params;
 
-	// console.log(title, completed, id);
-
 	if (!title || title.trim().length === 0 || !id) {
 		return new ApiError(
 			404,
@@ -159,8 +157,6 @@ export const getTodos = asyncHandler(async function (req, res, next) {
 			todos: userTodos.todos.length,
 		});
 	} catch (error) {
-		console.log(error);
-
 		return new ApiError(400, "Could not get Todos.", error).JSONError(res);
 	}
 });
