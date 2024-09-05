@@ -9,12 +9,12 @@ function ProtectedRoute({ children }) {
 
 	const isValidUser = async function () {
 		try {
-			const ans = await new Promise((req, res) => {
-				setTimeout(() => {
-					res();
-				}, 1000);
-			});
-			console.log(ans);
+			// const ans = await new Promise((req, res) => {
+			// 	setTimeout(() => {
+			// 		res("500");
+			// 	}, 1000);
+			// });
+			// console.log(ans);
 			await axios.post(
 				"https://todo-list-app-xxh1.vercel.app/api/user/isValidUser",
 				{},
