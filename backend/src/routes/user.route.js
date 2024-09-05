@@ -17,6 +17,6 @@ router.route("/login").post(loginUser); // done
 router.route("/logout").post(verifyAccessToken, logoutUser);
 router
 	.route("/isValidUser")
-	.post(verifyAccessToken, verifyRefreshToken, isValidUser);
+	.get(verifyAccessToken, verifyRefreshToken, isValidUser);
 
 export default router;

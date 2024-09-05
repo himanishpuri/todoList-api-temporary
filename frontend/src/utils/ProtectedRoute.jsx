@@ -15,9 +15,8 @@ function ProtectedRoute({ children }) {
 			// 	}, 1000);
 			// });
 			// console.log(ans);
-			await axios.post(
+			await axios.get(
 				"https://todo-list-app-fui3.vercel.app/api/user/isValidUser",
-				{},
 				{ withCredentials: true },
 			);
 			setAuthenticated(true);
