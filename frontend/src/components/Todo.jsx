@@ -1,21 +1,34 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Todo({ id, title, completed, getTodosFromServer }) {
+	const navigate = useNavigate();
 	const [edit, setEdit] = useState(false);
 	const [msg, setMsg] = useState(title);
 	const [isComplete, setIsComplete] = useState(completed);
 
 	const updateServer = async function (msg, completed) {
-		await axios.put(
-			`http://localhost:5000/api/todos/${id}`,
-			{
-				title: msg,
-				completed,
-			},
-			{ withCredentials: true },
-		);
+		try {
+			await axios.put(
+				`http://localhost:5000/api/todos/${id}`,
+				{
+					title: msg,
+					completed,
+				},
+				{ withCredentials: true },
+			);
+		} catch (error) {
+			try {
+				await axios.get("http://localhost:5000/api/newToken", {
+					withCredentials: true,
+				});
+				await updateServer();
+			} catch (error) {
+				navigate("/");
+			}
+		}
 	};
 
 	const handleEdit = () => {
@@ -31,10 +44,21 @@ function Todo({ id, title, completed, getTodosFromServer }) {
 	};
 
 	const handleDelete = async () => {
-		await axios.delete(`http://localhost:5000/api/todos/${id}`, {
-			withCredentials: true,
-		});
-		await getTodosFromServer();
+		try {
+			await axios.delete(`http://localhost:5000/api/todos/${id}`, {
+				withCredentials: true,
+			});
+			await getTodosFromServer();
+		} catch (error) {
+			try {
+				await axios.get("http://localhost:5000/api/newToken", {
+					withCredentials: true,
+				});
+				await handleDelete();
+			} catch (error) {
+				navigate("/");
+			}
+		}
 	};
 
 	const text_toDo_Done = "line-through text-gray-400";

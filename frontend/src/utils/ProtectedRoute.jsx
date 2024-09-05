@@ -1,10 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { Navigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
-function ProtectedRoute() {
+function ProtectedRoute({ children }) {
 	const [authenticated, setAuthenticated] = useState(false);
+	const [loading, setLoading] = useState(true);
 
-    const
-	return <div>ProtectedRoute</div>;
+	const isValidUser = async function () {
+		try {
+			await axios.post(
+				"http://localhost:5000/api/user/isValidUser",
+				{},
+				{
+					withCredentials: true,
+				},
+			);
+			setAuthenticated(true);
+		} catch (error) {
+			setAuthenticated(false);
+			// navigate("/");
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	useEffect(() => {
+		isValidUser();
+	}, []);
+
+	if (loading) return <h1>Loading...</h1>;
+
+	return authenticated ? children : <Navigate to="/" />;
 }
+
+ProtectedRoute.propTypes = {
+	children: PropTypes.node.isRequired,
+};
 
 export default ProtectedRoute;

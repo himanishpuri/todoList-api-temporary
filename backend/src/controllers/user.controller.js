@@ -115,8 +115,6 @@ export const loginUser = asyncHandler(async function (req, res, next) {
 });
 
 export const logoutUser = asyncHandler(async function (req, res, next) {
-	console.log("User", req);
-
 	try {
 		const user = await User.findByIdAndUpdate(req?.user?.id, {
 			$set: { refreshToken: null },
@@ -146,4 +144,15 @@ export const logoutUser = asyncHandler(async function (req, res, next) {
 	} catch (error) {
 		return new ApiError(500, "Server Issue", error).JSONError(res);
 	}
+});
+
+export const isValidUser = asyncHandler(async function (req, res, next) {
+	if (req?.user?.id) {
+		return res.status(200).json({
+			success: true,
+			message: "User is Valid.",
+		});
+	}
+
+	return new ApiError(401, "User is Invalid.").JSONError(res);
 });
