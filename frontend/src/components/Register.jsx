@@ -23,17 +23,24 @@ function Register() {
 	} = useForm();
 
 	const onSubmit = async (data) => {
-		const response = await axios.post(
-			"http://localhost:5000/api/user/register",
-			data,
-			{ withCredentials: true },
-		);
-		const { data: resData } = response;
-		setErrMsg(resData?.message);
-		setTimeout(() => {
-			setErrMsg("");
-		}, 5 * 1000);
-		if (resData?.success) navigate("/app");
+		try {
+			const response = await axios.post(
+				"http://localhost:5000/api/user/register",
+				data,
+				{ withCredentials: true },
+			);
+			const { data: resData } = response;
+			setErrMsg(resData?.message);
+			setTimeout(() => {
+				setErrMsg("");
+			}, 5 * 1000);
+			if (resData?.success) navigate("/app");
+		} catch (error) {
+			setErrMsg(error.response.data.message);
+			setTimeout(() => {
+				setErrMsg("");
+			}, 5 * 1000);
+		}
 	};
 	return (
 		<div className="bg-gray-900 h-screen w-full grid place-items-center">

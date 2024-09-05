@@ -13,11 +13,7 @@ const router = createBrowserRouter([
 	},
 	{
 		path: "/register",
-		element: (
-			<ProtectedRoute>
-				<Register />
-			</ProtectedRoute>
-		),
+		element: <Register />,
 	},
 	{
 		path: "/app",

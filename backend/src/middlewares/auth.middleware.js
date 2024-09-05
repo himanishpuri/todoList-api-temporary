@@ -42,7 +42,6 @@ export const verifyAccessToken = function (req, res, next) {
 		req.user = {
 			id: decodedToken?.id,
 		};
-		console.log("going to next");
 
 		next();
 	} catch (error) {
