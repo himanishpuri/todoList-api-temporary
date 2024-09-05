@@ -10,7 +10,7 @@ function ProtectedRoute({ children }) {
 	const isValidUser = async function () {
 		try {
 			await axios.post(
-				"https://todo-list-app-vaiq.vercel.app/api/user/isValidUser",
+				"https://todo-list-app-xxh1.vercel.app/api/user/isValidUser",
 				{},
 				{
 					withCredentials: true,
