@@ -9,12 +9,17 @@ function ProtectedRoute({ children }) {
 
 	const isValidUser = async function () {
 		try {
+			const ans = await new Promise((req, res) => {
+				setTimeout(() => {
+					res();
+				}, 5000);
+			});
 			await axios.post(
 				"https://todo-list-app-xxh1.vercel.app/api/user/isValidUser",
 				{},
-				// {
-				// 	withCredentials: true,
-				// },
+				{
+					withCredentials: true,
+				},
 			);
 			setAuthenticated(true);
 		} catch (error) {
