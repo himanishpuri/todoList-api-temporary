@@ -108,8 +108,6 @@ export const loginUser = asyncHandler(async function (req, res, next) {
 					email: user.email,
 					name: user.name,
 				},
-				accessToken,
-				refreshToken,
 			});
 	} catch (error) {
 		return new ApiError(500, "Server Issue", error).JSONError(res);

@@ -30,10 +30,10 @@ function App() {
 		// 		},
 		// 	},
 		// );
-		console.log("Res", res);
+		// console.log("Res", res);
 
 		const { data: todos } = res;
-		console.log("app todo,", todos);
+		// console.log("app todo,", todos);
 
 		setTodoInfo(todos.data);
 		// console.log(todos);
@@ -45,9 +45,13 @@ function App() {
 	}, [page]);
 
 	const handleLogout = async () => {
-		const res = await axios.post(`http://localhost:5000/api/user/logout`, {
-			withCredentials: true,
-		});
+		const res = await axios.post(
+			`http://localhost:5000/api/user/logout`,
+			{},
+			{
+				withCredentials: true,
+			},
+		);
 		// await fetch(`http://localhost:5000/api/user/logout`, {
 		// 	method: "POST",
 		// 	credentials: "include", // Include cookies in the request
