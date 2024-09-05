@@ -15,9 +15,12 @@ app.use(express.json()); // to handle application/json
 app.use(express.urlencoded({ extended: true }));
 app.use(
 	cors({
+		origin: process.env.HOST_ORIGIN,
 		credentials: true,
 	}),
 );
+console.log(process.env.HOST_ORIGIN);
+
 app.use(upload.none()); // to handle multipart/formData
 
 import userRouter from "./src/routes/user.route.js";
