@@ -57,8 +57,6 @@ export const registerUser = asyncHandler(async function (req, res, next) {
 				success: true,
 				message: "User Created Successfully.",
 				user: registeredUser,
-				accessToken: AccessToken, // temporary sending in json, will be removed later
-				refreshToken: RefreshToken,
 			});
 	} catch (error) {
 		return new ApiError(500, "Server Issue", error).JSONError(res);
