@@ -12,8 +12,9 @@ function ProtectedRoute({ children }) {
 			const ans = await new Promise((req, res) => {
 				setTimeout(() => {
 					res();
-				}, 5000);
+				}, 1000);
 			});
+			console.log(ans);
 			await axios.post(
 				"https://todo-list-app-xxh1.vercel.app/api/user/isValidUser",
 				{},
@@ -36,7 +37,12 @@ function ProtectedRoute({ children }) {
 		isValidUser();
 	}, []);
 
-	if (loading) return <h1>Loading...</h1>;
+	if (loading)
+		return (
+			<h1 className="flex text-5xl items-center justify-center bg-black text-white min-h-screen min-w-full">
+				Loading...
+			</h1>
+		);
 
 	return authenticated ? children : <Navigate to="/" />;
 }
