@@ -80,19 +80,19 @@ export const verifyRefreshToken = function (req, res, next) {
 		next();
 	} catch (error) {
 		res.clearCookie("accessToken").clearCookie("refreshToken");
-		// if (error.name === "TokenExpiredError") {
-		// 	new ApiError(
-		// 		401,
-		// 		"Expired Refresh Token.Logged out.",
-		// 		error,
-		// 	).JSONError(res);
-		// } else {
-		// 	new ApiError(
-		// 		401,
-		// 		"Invalid Token or Already Logged Out.",
-		// 		error,
-		// 	).JSONError(res);
-		// }
+		if (error.name === "TokenExpiredError") {
+			new ApiError(
+				401,
+				"Expired Refresh Token.Logged out.",
+				error,
+			).JSONError(res);
+		} else {
+			new ApiError(
+				401,
+				"Invalid Token or Already Logged Out.",
+				error,
+			).JSONError(res);
+		}
 	}
 };
 
