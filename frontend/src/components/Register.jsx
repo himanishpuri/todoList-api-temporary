@@ -25,7 +25,7 @@ function Register() {
 	const onSubmit = async (data) => {
 		try {
 			const response = await axios.post(
-				"http://localhost:5000/api/user/register",
+				"https://todolistappcrud.netlify.app/api/user/register",
 				data,
 				{ withCredentials: true },
 			);

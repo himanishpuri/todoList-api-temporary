@@ -10,7 +10,7 @@ function ProtectedRoute({ children }) {
 	const isValidUser = async function () {
 		try {
 			await axios.post(
-				"http://localhost:5000/api/user/isValidUser",
+				"https://todolistappcrud.netlify.app/api/user/isValidUser",
 				{},
 				{
 					withCredentials: true,

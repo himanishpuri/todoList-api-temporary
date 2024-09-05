@@ -13,7 +13,7 @@ function TodoForm({ getTodosFromServer }) {
 		if (todoMsg.trim().length === 0) return;
 		try {
 			await axios.post(
-				"http://localhost:5000/api/todos",
+				"https://todolistappcrud.netlify.app/api/todos",
 				{
 					title: todoMsg.trim(),
 					completed: false,
@@ -25,9 +25,12 @@ function TodoForm({ getTodosFromServer }) {
 			await getTodosFromServer();
 		} catch (error) {
 			try {
-				await axios.get("http://localhost:5000/api/newToken", {
-					withCredentials: true,
-				});
+				await axios.get(
+					"https://todolistappcrud.netlify.app/api/newToken",
+					{
+						withCredentials: true,
+					},
+				);
 				await handleAdd();
 			} catch (error) {
 				navigate("/");

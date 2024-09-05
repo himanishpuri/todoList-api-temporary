@@ -13,7 +13,7 @@ function Todo({ id, title, completed, getTodosFromServer }) {
 	const updateServer = async function (msg, completed) {
 		try {
 			await axios.put(
-				`http://localhost:5000/api/todos/${id}`,
+				`https://todolistappcrud.netlify.app/api/todos/${id}`,
 				{
 					title: msg,
 					completed,
@@ -22,9 +22,12 @@ function Todo({ id, title, completed, getTodosFromServer }) {
 			);
 		} catch (error) {
 			try {
-				await axios.get("http://localhost:5000/api/newToken", {
-					withCredentials: true,
-				});
+				await axios.get(
+					"https://todolistappcrud.netlify.app/api/newToken",
+					{
+						withCredentials: true,
+					},
+				);
 				await updateServer();
 			} catch (error) {
 				navigate("/");
@@ -47,15 +50,21 @@ function Todo({ id, title, completed, getTodosFromServer }) {
 	const handleDelete = async () => {
 		setDeleting(true);
 		try {
-			await axios.delete(`http://localhost:5000/api/todos/${id}`, {
-				withCredentials: true,
-			});
+			await axios.delete(
+				`https://todolistappcrud.netlify.app/api/todos/${id}`,
+				{
+					withCredentials: true,
+				},
+			);
 			await getTodosFromServer();
 		} catch (error) {
 			try {
-				await axios.get("http://localhost:5000/api/newToken", {
-					withCredentials: true,
-				});
+				await axios.get(
+					"https://todolistappcrud.netlify.app/api/newToken",
+					{
+						withCredentials: true,
+					},
+				);
 				await handleDelete();
 			} catch (error) {
 				navigate("/");
