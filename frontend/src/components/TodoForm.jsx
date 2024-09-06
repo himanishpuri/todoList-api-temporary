@@ -13,7 +13,7 @@ function TodoForm({ getTodosFromServer }) {
 		if (todoMsg.trim().length === 0) return;
 		try {
 			await axios.post(
-				"https://todo-list-app-fui3.vercel.app/api/todos",
+				"https://todo-list-app-backend-sandy.vercel.app/api/todos",
 				{
 					title: todoMsg.trim(),
 					completed: false,
@@ -26,7 +26,7 @@ function TodoForm({ getTodosFromServer }) {
 		} catch (error) {
 			try {
 				await axios.get(
-					"https://todo-list-app-fui3.vercel.app/api/newToken",
+					"https://todo-list-app-backend-sandy.vercel.app/api/newToken",
 					{
 						withCredentials: true,
 					},

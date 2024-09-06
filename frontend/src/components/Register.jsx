@@ -25,7 +25,7 @@ function Register() {
 	const onSubmit = async (data) => {
 		try {
 			const response = await axios.post(
-				"https://todo-list-app-fui3.vercel.app/api/user/register",
+				"https://todo-list-app-backend-sandy.vercel.app/api/user/register",
 				data,
 				{ withCredentials: true },
 			);
