@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import TodoForm from "./components/TodoForm";
 import Todo from "./components/Todo";
-import bg_img from "./assets/skyline.jpg";
+import grid from "./assets/grid.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -40,8 +40,8 @@ function App() {
 
 	return (
 		<div
-			className="w-screen h-screen bg-cover flex justify-center items-center flex-col overflow-x-hidden overflow-y-scroll scrollbar-none relative"
-			style={{ backgroundImage: `url(${bg_img})` }}
+			className="w-screen h-screen bg-cover bg-center flex justify-center items-center flex-col overflow-x-hidden overflow-y-scroll scrollbar-none relative"
+			style={{ backgroundImage: `url(${grid})` }}
 		>
 			<Link
 				to={"/"}

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Button } from "@mui/material";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -97,24 +98,50 @@ function Todo({ id, title, completed, getTodosFromServer }) {
 				readOnly={!edit}
 				onChange={(e) => setMsg(e.currentTarget.value)}
 			></input>
-			<button
-				className={` px-2 py-0.5 text-lg align-text-top text-black rounded-lg shadow-lg font-medium hover:bg-gray-500 duration-200 ${
-					isComplete ? "bg-gray-500" : "bg-gray-300"
-				}`}
+			<Button
+				variant="contained"
+				size="large"
+				sx={{
+					color: "black",
+					borderRadius: "0.5rem",
+					boxShadow: 3,
+					fontSize: "1rem",
+					padding: "0.25rem 1rem",
+					textTransform: "capitalize",
+					fontWeight: "bold",
+					backgroundColor: completed ? "gray" : "#D1D5DB",
+					transition: "background-color 200ms", // Equivalent to duration-200
+					"&:hover": {
+						backgroundColor: "gray",
+					},
+				}}
 				onClick={handleEdit}
 				disabled={isComplete}
 			>
 				{!edit ? "Edit" : "Save"}
-			</button>
-			<button
-				className={`bg-gray-300 px-2 py-0.5 text-lg align-text-top text-black rounded-lg shadow-lg font-medium hover:bg-gray-500 duration-200 ${
-					isComplete ? "bg-gray-500" : "bg-gray-300"
-				}`}
+			</Button>
+			<Button
+				variant="contained"
+				size="large"
+				sx={{
+					color: "black",
+					borderRadius: "0.5rem",
+					boxShadow: 3,
+					fontSize: "1rem",
+					padding: "0.25rem 1rem",
+					textTransform: "capitalize",
+					fontWeight: "bold",
+					backgroundColor: completed ? "gray" : "#D1D5DB",
+					transition: "background-color 200ms", // Equivalent to duration-200
+					"&:hover": {
+						backgroundColor: "gray",
+					},
+				}}
 				onClick={handleDelete}
 				disabled={isComplete || deleting}
 			>
 				{deleting ? "Deleting..." : "Delete"}
-			</button>
+			</Button>
 		</div>
 	);
 }
